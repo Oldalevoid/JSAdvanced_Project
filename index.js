@@ -1,4 +1,5 @@
 let loadedNewsCount = 10;
+let allNews = [];
 
 function loadNews() {
   fetchNews(loadedNewsCount);
@@ -18,22 +19,34 @@ function fetchNews(startIndex, searchTerm = "") {
       return Promise.all(storyPromises);
     })
     .then(details => {
-      clearNewsContainer(); // Clear existing news before displaying new ones
-
       details.forEach(detail => {
         if (detail && detail.title && detail.title.toLowerCase().includes(searchTerm.toLowerCase())) {
-          const newsElement = document.createElement('div');
-          newsElement.classList.add('card');
-          newsElement.innerHTML = `
-            <h2>${detail.title}</h2>
-            <button><a href="${detail.url}" target="_blank">Read More!</a></button>
-            <p>Data: ${new Date(detail.time * 1000)}</p>
-          `;
-          document.getElementById('news-container').appendChild(newsElement);
+          allNews.push(detail); // Store the new details
         }
       });
+
+      displayNews();
     })
-    .catch(error => console.error('Errore durante la richiesta:', error));
+    .catch(error => console.error('Error during the request:', error));
+}
+
+function displayNews() {
+  const newsContainer = document.getElementById('news-container');
+  // Clear existing news only if it's a new search
+  if (loadedNewsCount === 10) {
+    clearNewsContainer();
+  }
+
+  allNews.forEach(detail => {
+    const newsElement = document.createElement('div');
+    newsElement.classList.add('card');
+    newsElement.innerHTML = `
+      <h2>${detail.title}</h2>
+      <button><a href="${detail.url}" target="_blank">Read More!</a></button>
+      <p>Data: ${new Date(detail.time * 1000)}</p>
+    `;
+    newsContainer.appendChild(newsElement);
+  });
 }
 
 function clearNewsContainer() {
@@ -43,7 +56,7 @@ function clearNewsContainer() {
   }
 }
 
-// Carica dieci notizie all'avvio della pagina
+// Load ten news on page startup
 loadNews();
 
 document.getElementById("load-more-btn").addEventListener("click", function () {
@@ -54,5 +67,7 @@ document.getElementById("load-more-btn").addEventListener("click", function () {
 // Add event listener for the search button
 document.getElementById("search-btn").addEventListener("click", function () {
   const searchTerm = document.getElementById("search-bar").value;
+  loadedNewsCount = 10; // Reset loadedNewsCount when searching
+  allNews = []; // Clear existing news when searching
   fetchNews(loadedNewsCount, searchTerm);
 });
