@@ -19,7 +19,9 @@ box-sizing: border-box;}
    
 }
 
-
+a {
+    color:#fff;
+}
 /* Apply the color palette */
 body {
     width:100%;
@@ -43,10 +45,11 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 10vh;
-    
+    height: 20vh;
+   
     margin-bottom: 2rem;
     width: 100%;
+   
 }
 
 header h1 {
@@ -142,6 +145,19 @@ a:hover {
     transition: background 0.3s ease-in-out;
 }
 
+#goup{
+ 
+    margin: 0 auto;
+    margin-top: 1 rem;
+    height: 8vh;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    font-family: 'Pixelify Sans', sans-serif;
+   
+   
+
+}
+
 #load-more-btn:hover {
     background: var(--button-hover-bg);
 }
@@ -188,3 +204,4 @@ a:hover {
         margin-top: 5rem;
     }
  }
+
