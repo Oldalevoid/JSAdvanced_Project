@@ -73,10 +73,17 @@ header h1 {
     display:flex;
     flex-direction: column;
     width: 40%;
-    border: 1px solid white;
+    
     margin: 0 auto;
     margin-bottom: 3rem;
 
+}
+
+#search-btn{
+    background-color: #232D3F;
+    border-radius: 2px;
+    color: white;
+    height:70px;
 }
 
 
