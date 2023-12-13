@@ -10,7 +10,7 @@ implementare la funzionalità di ricerca.
 
 Funzionalità
 Caricamento Iniziale: All'avvio della pagina, recupera dieci articoli di notizie più recenti.
-Carica Altro: Permette agli utenti di caricare un set aggiuntivo di dieci articoli di notizie cliccando sul pulsante "Carica Altro".
+GiveMeMore!: Permette agli utenti di caricare un set aggiuntivo di dieci articoli di notizie cliccando sul pulsante "GiveMeMore!".
 Ricerca Notizie: Consente agli utenti di cercare articoli di notizie specifici in base a un termine di ricerca fornito.
 
 
@@ -56,7 +56,7 @@ The code is structured into several functions that interact to retrieve news art
 
 Features
 Initial Load: On page startup, retrieves ten most recent news articles.
-Load More: Allows users to load an additional set of ten news articles by clicking the "Load More" button.
+GiveMeMore!: Allows users to load an additional set of ten news articles by clicking the "GiveMeMore!" button.
 Search News: Enables users to search for specific news articles based on a provided search term.
 
 How to Use
