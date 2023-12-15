@@ -5,30 +5,34 @@ function loadNews() {
   fetchNews(loadedNewsCount);
 }
 
-function fetchNews(startIndex, searchTerm = "") {
-  fetch("https://hacker-news.firebaseio.com/v0/newstories.json")
-    .then(response => response.json())
-    .then(data => {
+async function fetchNews(startIndex, searchTerm = "") {
+    try {
+      const response = await fetch("https://hacker-news.firebaseio.com/v0/newstories.json");
+      const data = await response.json();
+  
       const nextTenIDs = data.slice(startIndex, startIndex + 10);
-
       const storyPromises = nextTenIDs.map(id => {
         return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
           .then(response => response.json());
       });
-
-      return Promise.all(storyPromises);
-    })
-    .then(details => {
+  
+      const details = await Promise.all(storyPromises);
+  
       details.forEach(detail => {
         if (detail && detail.title && detail.title.toLowerCase().includes(searchTerm.toLowerCase())) {
           allNews.push(detail); // Store the new details
         }
       });
-
+  
       displayNews();
-    })
-    .catch(error => console.error('Error during the request:', error));
-}
+    } catch (error) {
+      console.error('Error during the request:', error);
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.textContent = 'Errore durante il caricamento dei dati. Si prega di riprovare più tardi.';
+      errorMessage.style.display = 'block';
+    }
+  }
+  
 
 function displayNews() {
   const newsContainer = document.getElementById('news-container');
